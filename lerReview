@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void main()
+{
+    int nota;
+    char comentario[90000];
+    char armazenaComen[90000];
+
+    //abrir arquivos
+    FILE *review = fopen("tripadvisor_hotel.csv", "r");
+    FILE *nota1 = fopen("Nota1.txt", "w");
+    FILE *nota2 = fopen("Nota2.txt", "w");
+    FILE *nota3 = fopen("Nota3.txt", "w");
+    FILE *nota4 = fopen("Nota4.txt", "w");
+    FILE *nota5 = fopen("Nota5.txt", "w");
+
+    //verificar se o arquivo está retornado nulo (Controle de erro)
+    if(review == NULL){
+        printf ("Nulo");
+    }
+
+    //ler os comentários até a ultima virgula
+    //(EOF (End of file) verifica se está no fim do arquivo)
+    while(fscanf(review, "%[^ ,]s", comentario) != EOF){
+        strcat(armazenaComen, comentario); //armazena em armazenaComen o que está em comentario
+            nota = 0;
+             fscanf(review, "%d", &nota); //Pega a nota do review
+             if(nota == 1){
+                fprintf(nota1, "%s", armazenaComen);
+                }else if(nota == 2) {
+                    fprintf(nota2, "%s", armazenaComen);
+                    }else if(nota == 3) {
+                        fprintf(nota3, "%s", armazenaComen);
+                        }else if(nota == 4) {
+                            fprintf(nota4, "%s", armazenaComen);
+                            }else if(nota == 5) {
+                                fprintf(nota5, "%s", armazenaComen);
+                                }
+        strcpy(armazenaComen, ""); //Evitar sobreescrever dados
+        fgetc(review);
+    }
+
+
+        fclose(nota1);
+        fclose(nota2);
+        fclose(nota3);
+        fclose(nota4);
+        fclose(nota5);
+     
+}
